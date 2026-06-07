@@ -34,6 +34,7 @@ for (const area of areas.slice(0, 20)) {
     .logo:before{content:"🔧";margin-right:10px}
     .headPhone{background:#1f5bbb;color:#fff;border-radius:999px;padding:16px 34px;font-size:26px;font-weight:900;display:inline-block}
     .nav{display:flex;gap:34px;font-size:18px;font-weight:900}
+
     .hero{display:grid;grid-template-columns:1fr 1fr;min-height:640px}
     .heroPhoto{background:linear-gradient(135deg,#ddd,#aaa);display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;color:#fff}
     .heroBlue{background:#073f9e;color:#fff;display:flex;align-items:center;justify-content:center;padding:60px}
@@ -43,44 +44,54 @@ for (const area of areas.slice(0, 20)) {
     .yellow{color:#ffd000}
     .bigCall{display:inline-block;margin-top:34px;background:#fff;color:#111;border-radius:999px;padding:22px 62px;font-size:44px;font-weight:900;box-shadow:0 12px 0 rgba(0,0,0,.18)}
     .miniText{margin-top:36px;color:#fff;font-size:24px;line-height:1.5}
+
     section{padding:80px 24px}
     .wrap{max-width:1180px;margin:0 auto}
     .center{text-align:center}
     h2{font-size:42px;margin:0 0 20px;font-weight:900}
     h2 span{color:#1f5bbb}
     .sub{font-size:20px;line-height:1.7;color:#222;margin:0}
+
     .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:46px}
     .card{border:1px solid #ddd;background:#fff;text-align:center}
     .fakeImg{height:210px;background:linear-gradient(135deg,#d8d8d8,#9d9d9d);display:flex;align-items:center;justify-content:center;color:white;font-size:26px;font-weight:900}
     .cardBody{padding:34px 28px}
     .card h3{color:#1f5bbb;font-size:24px;margin:0 0 18px}
     .card p{font-size:17px;line-height:1.75;margin:0;color:#222}
+
     .faqSec{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
     .roundPhoto{height:560px;border-radius:90px;background:linear-gradient(135deg,#ddd,#999);display:flex;align-items:center;justify-content:center;color:white;font-size:30px;font-weight:900}
     .faqList{display:grid;gap:22px;margin-top:34px}
     .faqItem{background:#1f5bbb;color:#fff;border-radius:999px;padding:24px 36px;font-size:20px;font-weight:900;display:flex;justify-content:space-between}
+
+    .midCall{padding:40px 24px;background:#f7f7f7}
+    .midCallBox{max-width:900px;margin:auto;background:#1f5bbb;color:white;text-align:center;padding:42px;border-radius:26px;box-shadow:0 15px 40px rgba(0,0,0,.12)}
+    .midSmall{font-size:26px;font-weight:900;margin-bottom:12px}
+    .midPhone{display:inline-block;font-size:58px;font-weight:900;color:#ffd000;margin-bottom:16px}
+    .midCallBox p{margin:0;font-size:20px;line-height:1.8}
+
     .works{background:#f7f7f7}
     .workGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin-top:44px}
     .workCard{background:#2464f2;color:#fff;height:180px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:24px;font-weight:900}
+
     .serviceBand{display:grid;grid-template-columns:repeat(4,1fr)}
     .serviceItem{position:relative;min-height:380px;background:#111;color:#fff;padding:70px 50px;text-align:center;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
     .serviceItem:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.62),rgba(0,0,0,.72))}
-    .serviceItem:nth-child(1){background:linear-gradient(135deg,#333,#111)}
-    .serviceItem:nth-child(2){background:linear-gradient(135deg,#444,#111)}
-    .serviceItem:nth-child(3){background:linear-gradient(135deg,#333,#111)}
-    .serviceItem:nth-child(4){background:linear-gradient(135deg,#555,#111)}
     .serviceItem>*{position:relative}
     .num{font-size:54px;color:#ffd000;font-weight:900}
     .serviceItem h3{color:#ffd000;font-size:28px}
     .serviceItem p{font-size:18px;line-height:1.7;color:#ddd}
+
     .links{background:#fff}
     .areaGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:38px}
     .areaGrid a{border:1px solid #ddd;border-radius:12px;padding:16px 20px;font-weight:900}
     .popular{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:38px}
     .popular a{background:#f4f7ff;border:1px solid #dce6ff;border-radius:12px;padding:14px;font-weight:800;font-size:15px}
+
     .footer{background:#1f5bbb;color:#fff;text-align:center;padding:70px 24px}
     .footer h2{color:#fff}
     .footerCall{display:inline-block;margin-top:26px;color:#ffd000;font-size:34px;font-weight:900}
+
     @media(max-width:900px){
       .header{height:auto;padding:24px}
       .headInner,.hero,.faqSec,.cards3,.workGrid,.serviceBand,.areaGrid,.popular{grid-template-columns:1fr;display:grid}
@@ -90,6 +101,9 @@ for (const area of areas.slice(0, 20)) {
       .bigCall{font-size:30px;padding:18px 34px}
       .heroBlue{padding:50px 20px}
       .heroPhoto{min-height:300px}
+      .midPhone{font-size:40px}
+      .midSmall{font-size:21px}
+      .midCallBox p{font-size:17px}
     }
   </style>
 </head>
@@ -105,7 +119,7 @@ for (const area of areas.slice(0, 20)) {
       </div>
       <nav class="nav">
         <a href="#services">우리가 하는 일</a>
-        <a href="#works">공사실적</a>
+        <a href="#works">주요 서비스</a>
         <a href="#areas">서울 현장</a>
         <a href="#faq">상담문의</a>
       </nav>
@@ -167,6 +181,19 @@ for (const area of areas.slice(0, 20)) {
             <a class="faqItem" href="/강남구-싱크대막힘">싱크대 물이 늦게 빠지는 이유는 무엇인가요? <b>+</b></a>
             <a class="faqItem" href="/강남구-누수탐지">천장에 물자국이 생기면 누수인가요? <b>+</b></a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="midCall">
+      <div class="wrap">
+        <div class="midCallBox">
+          <div class="midSmall">📞 친절 상담 전화</div>
+          <a class="midPhone" href={`tel:${tel}`}>{phone}</a>
+          <p>
+            누수탐지 · 하수구막힘 · 싱크대막힘 · 변기막힘<br />
+            연중무휴 빠른 상담 가능
+          </p>
         </div>
       </div>
     </section>
