@@ -24,19 +24,91 @@ const canonicalUrl = `${siteUrl}/${area}-${service}`;
 const areaIndex = areas.indexOf(area);
 const serviceIndex = services.indexOf(service);
 
-const areaTypes = [
-  "아파트와 빌라가 함께 있는 지역 특성상",
-  "상가와 주거시설이 함께 밀집된 지역이라",
-  "오래된 배관과 신축 건물이 함께 있는 지역이라",
-  "생활 배수 사용량이 많은 지역 특성상",
+const leakServices = [
+  "누수탐지","누수업체","누수진단","누수공사","아파트누수","빌라누수",
+  "욕실누수","천장누수","수도누수","계량기돌아감","보일러젖음","장판젖음",
+  "분배기누수","온수누수","변기누수","아랫집누수","배관누수"
 ];
 
-const symptoms = [
-  "물이 천천히 빠지는 증상",
-  "악취가 올라오는 증상",
-  "배수가 반복적으로 막히는 증상",
-  "바닥이나 벽면에 습기가 보이는 증상",
+const clogServices = [
+  "하수구막힘","싱크대막힘","배수구막힘","배관막힘","배관뚫음","배관뚫기",
+  "욕실막힘","화장실막힘","변기막힘","하수구역류","하수구뚫어주는곳",
+  "싱크대뚫어주는곳","소변기막힘","세탁실막힘"
 ];
+
+const pipeServices = ["배관청소","배관공사"];
+
+let serviceType = "general";
+
+if (leakServices.includes(service)) {
+  serviceType = "leak";
+} else if (clogServices.includes(service)) {
+  serviceType = "clog";
+} else if (pipeServices.includes(service)) {
+  serviceType = "pipe";
+}
+
+function getAreaProfile(area) {
+  if (
+    area.includes("강남") ||
+    area.includes("서초") ||
+    area.includes("송파") ||
+    area.includes("잠실") ||
+    area.includes("대치") ||
+    area.includes("압구정") ||
+    area.includes("청담")
+  ) {
+    return "아파트, 오피스텔, 상가 시설이 함께 많은 지역이라 배관 사용량이 많고 누수나 막힘 증상이 복합적으로 나타나는 경우가 있습니다.";
+  }
+
+  if (
+    area.includes("마포") ||
+    area.includes("영등포") ||
+    area.includes("종로") ||
+    area.includes("중구") ||
+    area.includes("용산") ||
+    area.includes("성수") ||
+    area.includes("합정") ||
+    area.includes("서교")
+  ) {
+    return "상가, 업무시설, 주거공간이 함께 있는 지역 특성상 배관 구조가 다양하고 사용 빈도에 따라 막힘이나 누수 증상이 다르게 나타날 수 있습니다.";
+  }
+
+  if (
+    area.includes("강서") ||
+    area.includes("양천") ||
+    area.includes("구로") ||
+    area.includes("금천") ||
+    area.includes("관악") ||
+    area.includes("동작")
+  ) {
+    return "빌라, 다세대주택, 아파트가 함께 있는 생활권이라 세대 내부 배관과 공용 배관 문제를 함께 확인해야 하는 경우가 많습니다.";
+  }
+
+  if (
+    area.includes("노원") ||
+    area.includes("도봉") ||
+    area.includes("강북") ||
+    area.includes("중랑") ||
+    area.includes("성북") ||
+    area.includes("은평")
+  ) {
+    return "오래된 주거시설과 아파트 단지가 함께 있는 지역이라 노후 배관, 배수 불량, 반복 막힘 증상을 세심하게 확인하는 것이 중요합니다.";
+  }
+
+  if (
+    area.includes("강동") ||
+    area.includes("광진") ||
+    area.includes("성동") ||
+    area.includes("동대문")
+  ) {
+    return "주거 밀집 지역과 상가 시설이 함께 분포한 곳이라 생활 배수 사용량이 많고 배관 내부 오염이나 누수 증상이 함께 확인되는 경우가 있습니다.";
+  }
+
+  return "주거시설과 생활 편의시설이 함께 있는 지역이라 배관 사용 환경에 따라 증상과 원인이 달라질 수 있습니다.";
+}
+
+const areaProfile = getAreaProfile(area);
 
 const methods = [
   "배관 내시경 확인",
@@ -46,9 +118,36 @@ const methods = [
   "가스탐지",
 ];
 
-const areaType = areaTypes[areaIndex % areaTypes.length];
-const symptom = symptoms[(areaIndex + serviceIndex) % symptoms.length];
 const method = methods[(areaIndex + serviceIndex) % methods.length];
+
+const serviceContents = {
+  leak: {
+    heading: `${area} ${service} 누수 원인 확인`,
+    p1: `${area} ${service} 문제는 겉으로 보이는 물자국만 보고 판단하기 어려운 경우가 많습니다. ${areaProfile}`,
+    p2: `천장 얼룩, 장판 젖음, 벽면 습기, 계량기 별침 회전처럼 증상은 비슷해 보여도 실제 원인은 수도배관, 온수배관, 난방배관, 욕실 방수층 등으로 달라질 수 있습니다.`,
+    p3: `배관솔루션은 ${area} 현장에서 먼저 피해 위치와 물 사용 상황을 확인한 뒤 필요한 경우 ${method} 장비를 활용해 누수 가능성을 점검합니다. 무조건 큰 공사를 권하는 방식이 아니라 증상과 검사 결과를 함께 보고 필요한 범위를 안내합니다.`
+  },
+  clog: {
+    heading: `${area} ${service} 막힘 증상 점검`,
+    p1: `${area} ${service} 문제는 음식물 찌꺼기, 기름때, 머리카락, 물티슈, 석회질, 오래된 배관 내부 이물질 등 여러 원인으로 발생할 수 있습니다. ${areaProfile}`,
+    p2: `처음에는 물이 조금 늦게 빠지는 정도로 시작되지만 시간이 지나면 악취, 역류, 반복 막힘으로 이어지는 경우가 많습니다.`,
+    p3: `배관솔루션은 ${area} 현장에서 배수 속도와 막힘 위치를 먼저 확인한 뒤 필요한 경우 ${method} 작업을 통해 원인을 파악합니다. 단순히 한 번 뚫고 끝내는 방식이 아니라 반복 가능성까지 함께 확인합니다.`
+  },
+  pipe: {
+    heading: `${area} ${service} 배관 상태 확인`,
+    p1: `${area} ${service} 작업은 단순 수리가 아니라 배관 상태와 사용 환경을 함께 보는 것이 중요합니다. ${areaProfile}`,
+    p2: `오래된 배관, 반복되는 막힘, 누수 흔적, 수압 저하, 악취 문제는 배관 내부 상태와 연결되어 있을 수 있습니다.`,
+    p3: `배관솔루션은 ${area} 현장에서 배관 구조와 증상을 확인한 뒤 필요한 작업 범위를 안내합니다. 상황에 따라 ${method} 장비를 활용해 문제 구간을 확인하고 실제 필요한 작업 중심으로 진행합니다.`
+  },
+  general: {
+    heading: `${area} ${service} 현장 안내`,
+    p1: `${area} ${service} 문제는 단순히 한 가지 원인으로만 발생하지 않는 경우가 많습니다. ${areaProfile}`,
+    p2: `배관 내부에 이물질이 쌓이거나 생활 오염물이 누적되면서 물 빠짐 저하, 악취, 습기, 반복 막힘 같은 증상이 함께 나타날 수 있습니다.`,
+    p3: `배관솔루션은 ${area} ${service} 현장에서 먼저 증상을 확인한 뒤 필요한 경우 ${method} 장비를 활용해 원인을 파악하고 실제 필요한 작업 범위를 안내합니다.`
+  }
+};
+
+const content = serviceContents[serviceType];
 
 const relatedAreas = areas
   .filter((item) => item !== area)
@@ -80,6 +179,18 @@ const faqSchema = {
     }
   ]
 };
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "배관솔루션",
+  "url": canonicalUrl,
+  "telephone": phone,
+  "areaServed": area,
+  "description": description,
+  "priceRange": "상담 후 안내",
+  "serviceType": service
+};
 ---
 
 <html lang="ko">
@@ -95,6 +206,7 @@ const faqSchema = {
   <meta property="og:url" content={canonicalUrl} />
 
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
 
   <style>
     *{box-sizing:border-box}
@@ -145,22 +257,10 @@ const faqSchema = {
     <section>
       <div class="wrap">
         <div class="box">
-          <h2>{area} {service} 안내</h2>
-          <p>
-            {area} {service} 문제는 단순히 한 가지 원인으로만 발생하지 않는 경우가 많습니다.
-            {areaType} 배관 내부에 이물질이 쌓이거나 기름때와 생활 오염물이 누적되면서
-            {symptom}이 함께 나타날 수 있습니다.
-          </p>
-          <p>
-            배관솔루션은 {area} {service} 현장에서 먼저 증상을 확인한 뒤,
-            필요한 경우 {method} 장비를 활용해 원인을 파악합니다.
-            무조건 큰 공사를 권하는 방식이 아니라 실제로 필요한 작업 범위를 확인한 뒤 안내합니다.
-          </p>
-          <p>
-            특히 {service} 문제는 시간이 지나면 같은 증상이 반복될 수 있기 때문에
-            초기에 원인을 확인하는 것이 중요합니다.
-            {area} 지역에서 {service} 관련 상담이 필요하다면 현장 상황에 맞춰 안내합니다.
-          </p>
+          <h2>{content.heading}</h2>
+          <p>{content.p1}</p>
+          <p>{content.p2}</p>
+          <p>{content.p3}</p>
         </div>
 
         <div class="box">
