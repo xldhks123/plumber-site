@@ -1,19 +1,36 @@
 ---
+import { areas } from "../data/areas.js";
+import { services } from "../data/services.js";
+
+const mainAreas = areas.slice(0, 30);
 ---
 
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <title>배관솔루션 | 하수구막힘 누수탐지 싱크대막힘</title>
-    <meta name="description" content="하수구막힘, 누수탐지, 싱크대막힘 전문 배관솔루션입니다." />
-  </head>
-  <body>
-    <h1>배관솔루션</h1>
-    <p>하수구막힘, 누수탐지, 싱크대막힘 전문 업체입니다.</p>
+<head>
+  <meta charset="UTF-8" />
+  <title>배관솔루션 | 하수구막힘 누수탐지 싱크대막힘</title>
+  <meta name="description" content="하수구막힘, 누수탐지, 싱크대막힘 전문 배관솔루션입니다. 서울, 경기 주요 지역 배관 문제 상담 가능합니다." />
+</head>
 
-    <ul>
-      <li><a href="/doksan">독산동 하수구막힘</a></li>
-      <li><a href="/gasan">가산동 하수구막힘</a></li>
-    </ul>
-  </body>
+<body>
+  <h1>배관솔루션</h1>
+
+  <p>
+    하수구막힘, 누수탐지, 싱크대막힘 문제를 지역별로 안내합니다.
+    배관솔루션은 현장 증상 확인 후 필요한 작업만 안내합니다.
+  </p>
+
+  {services.map((service) => (
+    <section>
+      <h2>{service} 주요 지역</h2>
+      <ul>
+        {mainAreas.map((area) => (
+          <li>
+            <a href={`/${area}-${service}`}>{area} {service}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</body>
 </html>
