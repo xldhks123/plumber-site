@@ -1,0 +1,55 @@
+---
+import { areas } from "../data/areas.js";
+import { services } from "../data/services.js";
+
+export async function getStaticPaths() {
+  return areas.flatMap((area) =>
+    services.map((service) => ({
+      params: {
+        slug: `${area}-${service}`,
+      },
+      props: {
+        area,
+        service,
+      },
+    }))
+  );
+}
+
+const { area, service } = Astro.props;
+
+const title = `${area} ${service} 전문 배관솔루션`;
+const description = `${area} ${service} 문제로 불편을 겪고 있다면 배관솔루션에서 하수구, 싱크대, 누수 관련 문제를 신속하게 확인해드립니다.`;
+---
+
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<body>
+  <h1>{area} {service}</h1>
+
+  <p>
+    {area} {service} 문제는 현장 상황에 따라 원인이 다르게 나타납니다.
+    배수 흐름이 느려지거나 악취가 올라오고, 물이 역류하는 경우에는
+    단순한 막힘이 아니라 배관 내부 이물질, 기름때, 노후 배관 문제가 함께 있을 수 있습니다.
+  </p>
+
+  <p>
+    배관솔루션은 {area} {service} 현장에서 증상을 먼저 확인하고,
+    필요한 경우 배관 내시경, 고압세척, 공압검사, 청음탐지 등을 활용해
+    원인을 정확히 파악한 뒤 필요한 작업만 진행합니다.
+  </p>
+
+  <p>
+    {area} 지역 하수구막힘, 누수탐지, 싱크대막힘 상담 가능합니다.
+  </p>
+
+  <p>
+    전화문의 : 010-0000-0000
+  </p>
+</body>
+</html>
