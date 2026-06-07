@@ -1,0 +1,38 @@
+---
+import { areas } from "../data/areas.js";
+
+export async function getStaticPaths() {
+  return areas.map((area) => ({
+    params: {
+      area,
+    },
+  }));
+}
+
+const { area } = Astro.params;
+---
+
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>{area} 하수구막힘</title>
+</head>
+
+<body>
+  <h1>{area} 하수구막힘</h1>
+
+  <p>
+    {area} 지역 하수구막힘,
+    변기막힘, 싱크대막힘 해결 가능합니다.
+  </p>
+
+  <p>
+    24시간 출동 상담 가능
+  </p>
+
+  <p>
+    전화문의 : 010-0000-0000
+  </p>
+
+</body>
+</html>
